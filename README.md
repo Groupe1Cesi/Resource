@@ -41,6 +41,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 ## Build docker image
+Build only on ``main`` branch !!!
 ```bash
-sudo docker image prune -a -f; sudo docker builder prune -a; sudo docker build -t repo.tchereau.fr/groupe1cesi/resource:main .; sudo docker push repo.tchereau.fr/groupe1cesi/resource:main
+sudo docker image prune -a -f; sudo docker builder prune -a; sudo docker build -t repo.maresource.fr/groupe1cesi/resource:main .; sudo docker push repo.maresource.fr/groupe1cesi/resource:main
 ```
