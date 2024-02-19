@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  resource:
+    image: repo.tchereau.fr/groupe1cesi/resource:main
+    container_name: resource
+    ports:
+      - "32589:3000"
+    environment:
+      VIRTUAL_HOST: resource.tchereau.fr
+      LETSENCRYPT_HOST: resource.tchereau.fr
+    networks:
+      - nginx-proxy
+    restart: unless-stopped
+
+networks:
+  nginx-proxy:
+    external:
+      name: nginx-proxy
