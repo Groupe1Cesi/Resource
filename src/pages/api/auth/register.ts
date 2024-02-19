@@ -12,7 +12,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return;
     }
     let user
-    // create a user
     try {
       user = await database.db.collection('users').findOne({ email })
     } catch (error) {
@@ -24,7 +23,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
     }
     const passwordHash = crypto.createHash('sha256').update(password).digest('hex')
-    const result = await database.db.collection('users').insertOne({ email, password: passwordHash })
+    let createdAt = new Date()
+    const result = await database.db.collection('users').insertOne({
+      email : email,
+      password: passwordHash,
+      role: ['user'],
+      createdAt: createdAt,
+      lastLogin: createdAt
+    })
     if (result.insertedId) {
       const token = jwt.sign({ id: result.insertedId, email }, process.env.JWT_SECRET as string, { expiresIn: '2h' })
       res.status(200).json({ status: 'success', token })

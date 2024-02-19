@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       user = await database.db.collection('users').findOne({ email });
     } catch (error) {
-      res.status(500).json({ message: 'Email ou mot de passe incorrect' });
+      res.status(500).json({ message: 'Erreur Interne' });
       return;
     }
 

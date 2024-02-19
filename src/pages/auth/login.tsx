@@ -1,11 +1,33 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import type { NextPage } from 'next'
 import React, { useState } from 'react';
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie';
 
 let Login: NextPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorSubmit, setErrorSubmit] = useState('')
+  let errorCount = 0
+  let router = useRouter()
+  let [_, setCookie] = useCookies(['token'])
+
+  if (_?.token) {
+    try {
+      fetch('/api/auth/verif', {
+        method: 'GET',
+        headers: {
+          'Authorization': _?.token
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          router.push('/')
+        }
+      })
+    } catch (error) {
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,9 +40,20 @@ let Login: NextPage = () => {
     });
 
     if (response.ok) {
-      // Gérer la réussite de la connexion, par exemple en enregistrant le token JWT
+      const data = await response.json()
+      setCookie('token', data.token, { path: '/' })
+      router.push('/')
     } else {
-      // Gérer l'erreur de connexion
+      console.log(response.status)
+      if (response.status === 500) {
+        setErrorSubmit(`Erreur lors de la connexion ... nouvel essai ${errorCount}`)
+        errorCount++
+        await handleSubmit(e)
+        return
+      }
+      const data = await response.json()
+      setErrorSubmit(data.message)
+      return
     }
   };
 
@@ -31,6 +64,7 @@ let Login: NextPage = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Connectez-vous à votre compte
           </h2>
+          { errorSubmit && <p className="mt-6 text-center text-3xl font-extrabold text-red-500 text-xs italic">{errorSubmit}</p> }
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" value="true" />

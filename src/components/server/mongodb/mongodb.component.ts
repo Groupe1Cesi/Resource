@@ -1,11 +1,24 @@
 import {Db, MongoClient} from 'mongodb';
 class Database {
+
   public static instance: Database;
   private client: MongoClient;
-  public db: Db
+  public db: Db;
+
   constructor() {
     this.client = new MongoClient(process.env.MONGO_URI as string);
-    this.login();
+    this.db = {} as Db;
+  }
+
+  public static async getInstance() {
+    
+    return new Promise<Database>(async (resolve, reject) => {
+      if (!Database.instance) {
+        Database.instance = new Database()
+        await Database.instance.login();
+      }
+      resolve(Database.instance);
+    })
   }
 
   private login = async () => {
@@ -35,13 +48,6 @@ class Database {
         await this.setDB();
       }
     })
-  }
-
-  public static async getInstance() {
-    if (!Database.instance) {
-      Database.instance = new Database();
-    }
-    return Database.instance;
   }
 }
 
