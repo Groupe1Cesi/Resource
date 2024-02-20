@@ -10,12 +10,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(401).json({ message: 'Non autorisé. Error 001' })
     return;
   }
-  // verify the token
   let token:any
   try {
     token = jwt.verify(authorization, process.env.JWT_SECRET as string)
-  } catch (error) {
-    res.status(401).json({ message: 'Non autorisé. Error 002' })
+  } catch (error:any) {
+    res.status(401).json({ status: 'error', message: 'Non autorisé. Error 002', error: error.message  })
     return;
   }
   if (!token.email && !token.id) {
@@ -35,10 +34,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(401).json({ message: 'Non autorisé. . Error 004' })
     return;
   }
-  console.log(user)
-  console.log(user._id)
-  // user._id is an ObjectId
-  // token.id is a string
 
   if (user._id.toString() !== token.id) {
     res.status(401).json({ message: 'Non autorisé. Error 005' })
