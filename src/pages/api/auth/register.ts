@@ -6,9 +6,9 @@ import crypto from 'crypto';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const database = await Database.getInstance()
     if (req.method === 'POST') {
-        const { email, password } = req.body
-        if (!email || !password) {
-            res.status(400).json({ message: 'Email et mot de passe requis' })
+        const { prenom, nom, email, password } = req.body
+        if (!email || !password || !prenom || !nom) {
+            res.status(400).json({ message: 'Prenom, Nom, Email et mot de passe requis' })
             return;
         }
         let user
@@ -25,6 +25,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const passwordHash = crypto.createHash('sha256').update(password).digest('hex')
         let createdAt = new Date()
         const result = await database.db.collection('users').insertOne({
+            prenom: prenom,
+            nom: nom,
             email : email,
             password: passwordHash,
             role: ['user'],

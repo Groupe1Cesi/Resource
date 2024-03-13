@@ -4,6 +4,7 @@ class Database {
   public static instance: Database;
   private client: MongoClient;
   public db: Db;
+  private logedIn: boolean = false;
 
   constructor() {
     this.client = new MongoClient(process.env.MONGO_URI as string);
@@ -17,6 +18,9 @@ class Database {
         Database.instance = new Database()
         await Database.instance.login();
       }
+      if (!this.instance.logedIn) {
+        await Database.instance.login();
+      }
       resolve(Database.instance);
     })
   }
@@ -24,6 +28,7 @@ class Database {
   private login = async () => {
     await this.connect();
     await this.setDB();
+    this.logedIn = true;
   }
 
   private connect = async ():Promise<void> => {
