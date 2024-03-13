@@ -26,7 +26,8 @@ export default function Nav(){
     let GetUser = async () => {
         let res = await fetch(`/api/user/info`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
         return res;
-      }
+    }
+    
     let userinfos = async () => {
         if (_.token !== undefined && _.token !== null && _.token !== "") {
             if (!userinfosCalled) {
@@ -50,7 +51,7 @@ export default function Nav(){
     }
     useEffect(() => {
         userinfos()
-    }, [])
+    })
   
     return (
         <header className="p-3 bg-dark text-white">
@@ -59,18 +60,19 @@ export default function Nav(){
                     <Link href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                         <Image src="/next.svg" alt="logo" width={30} height={24}/>
                     </Link>
+                    {/* {router.asPath == "/" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"} */}
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><Link href="#" className="nav-link px-2 text-secondary">Accueil</Link></li>
-                        <li><Link href="#" className="nav-link px-2 text-white">Forum</Link></li>
-                        <li><Link href="#" className="nav-link px-2 text-white">Dernier topic</Link></li>
-                        { user ? <li><Link href="#" className="nav-link px-2 text-white">Message</Link></li> : null }
-                        { user ? <li><Link href="#" className="nav-link px-2 text-white">Mon Compte</Link></li>: null }
+                        <li><Link href="" className={router.asPath == "/" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Accueil</Link></li>
+                        <li><Link href="/forum" className={router.asPath == "/forum" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Forum</Link></li>
+                        <li><Link href="/forum/dernier" className={router.asPath == "/forum/dernier" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Dernier topic</Link></li>
+                        { user ? <li><Link href="/messagerie" className={router.asPath == "/messagerie" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Message</Link></li> : null }
+                        { user ? <li><Link href="/moncompte" className={router.asPath == "/moncompte" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Mon Compte</Link></li>: null }
                     </ul>
-                    <div className="text-end">
-                        { user ? <p className="text-white me-2">Bonjour {user.prenom} {user.nom}</p> : ''}
-                        { user ? <button type="button" className="btn btn-outline-light me-2" onClick={logout}>Déconnexion</button> : ''}
-                        { user ? null : <Link href="/auth/connexion" className="btn btn-outline-light me-2">Connexion</Link>}
-                        { user ? null : <Link href="/auth/inscription" className="btn btn-warning">Inscription</Link>}
+                    <div className="nav justify-content-center">
+                        { user ? <Link href="#" className="btn text-white px-2">Bonjour {user.prenom} {user.nom}</Link> : null}
+                        { user ? <button type="button" className="btn btn-outline-light px-2" onClick={logout}>Déconnexion</button> : null}
+                        { user ? null : <Link href="/auth/connexion" className="btn btn-outline-light px-2">Connexion</Link>}
+                        { user ? null : <Link href="/auth/inscription" className="btn btn-warning px-2">Inscription</Link>}
                     </div>
                 </div>
             </div>

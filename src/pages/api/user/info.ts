@@ -35,10 +35,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (user.email !== token.email) {
         return res.status(401).json({ message: 'Non autorisé. Error 006' })
     }
-    let userinfos = {
+    let userInfos = {
         prenom: user.prenom,
         nom: user.nom,
     }
     console.log(user)
-    return res.status(200).json({ status: "success", user: userinfos })
+    if (!userInfos || userInfos === null || userInfos === undefined) {
+        return res.status(401).json({ status: "failed", message: "Erreur Interne" })
+    }
+    return res.status(200).json({ status: "success", user: userInfos })
 }

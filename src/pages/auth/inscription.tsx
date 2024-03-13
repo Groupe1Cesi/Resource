@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
+import Footer from '../../components/client/footer';
 
 let Inscription: NextPage = () => {
     const [prenom, setPrenom] = useState('');
@@ -54,7 +55,7 @@ let Inscription: NextPage = () => {
     };
     return (
     <>
-        <section className="p-3 p-md-4 p-xl-5 bg-dark bg-gradient">
+        <main className="p-3 p-md-4 p-xl-5 bg-dark bg-gradient">
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-12 col-xxl-11">
@@ -127,7 +128,6 @@ let Inscription: NextPage = () => {
                                                 <div className="col-12">
                                                     <div className="d-flex justify-content-center mt-5">
                                                         <Link href="/" className="btn btn-dark" type="submit">Retourner à l&apos;accueil</Link>
-                                                        <p className="text-center text-secondary">© {annee} Resource. Tous droits réservés.</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -139,7 +139,8 @@ let Inscription: NextPage = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </main>
+        <Footer/>
     </>
     )
 
