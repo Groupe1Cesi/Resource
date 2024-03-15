@@ -60,7 +60,7 @@ export default function Nav(){
                         <li><Link href="/forum" className={router.asPath == "/forum" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Forum</Link></li>
                         <li><Link href="/forum/dernier" className={router.asPath == "/forum/dernier" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Dernier topic</Link></li>
                         { user ? <li><Link href="/messagerie" className={router.asPath == "/messagerie" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Message</Link></li> : null }
-                        { user ? <li><Link href="/moncompte" className={router.asPath == "/moncompte" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Mon Compte</Link></li>: null }
+                        { user ? <li><Link href="/utilisateur" className={router.asPath == "/moncompte" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Mon Compte</Link></li>: null }
                     </ul>
                     <div className="nav justify-content-center">
                         { user ? <Link href="#" className="btn text-white px-2">Bonjour {user.prenom} {user.nom}</Link> : null}
