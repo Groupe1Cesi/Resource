@@ -38,6 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let userInfos = {
         prenom: user.prenom,
         nom: user.nom,
+        email: user.email
     }
     console.log(user)
     if (!userInfos || userInfos === null || userInfos === undefined) {

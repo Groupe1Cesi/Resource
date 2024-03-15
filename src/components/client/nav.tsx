@@ -4,13 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useCookies } from "react-cookie";
 import {useEffect, useState } from "react";
-
-// type user 
-
-type User = {
-    prenom: string,
-    nom: string,
-}
+import { User } from "@/types/user"
 
 export default function Nav(){
     const router = useRouter()
