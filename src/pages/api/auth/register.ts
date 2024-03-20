@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Database } from '../../../components/server/mongodb/mongodb.component'
+import { Database } from '@/components/server/mongodb/mongodb.component'
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { UserComplete } from '@/types/user'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const database = await Database.getInstance()
@@ -24,7 +25,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         const passwordHash = crypto.createHash('sha256').update(password).digest('hex')
         let createdAt = new Date()
+        const uuid =  crypto.randomBytes(16).toString("hex");
         const result = await database.db.collection('users').insertOne({
+            id: uuid,
             prenom: prenom,
             nom: nom,
             email : email,

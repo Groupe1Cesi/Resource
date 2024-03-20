@@ -18,7 +18,7 @@ export default function Nav(){
         }, 1000);
     }
     let GetUser = async () => {
-        let res = await fetch(`/api/user/info`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
+        let res = await fetch(`/api/user`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
         return res;
     }
     
@@ -56,7 +56,7 @@ export default function Nav(){
                     </Link>
                     {/* {router.asPath == "/" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"} */}
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><Link href="" className={router.asPath == "/" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Accueil</Link></li>
+                        <li><Link href="/" className={router.asPath == "/" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Accueil</Link></li>
                         <li><Link href="/forum" className={router.asPath == "/forum" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Forum</Link></li>
                         <li><Link href="/forum/dernier" className={router.asPath == "/forum/dernier" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Dernier topic</Link></li>
                         { user ? <li><Link href="/messagerie" className={router.asPath == "/messagerie" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Message</Link></li> : null }

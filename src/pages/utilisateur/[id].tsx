@@ -17,6 +17,9 @@ export default function Home() {
 
     let GetUser = async () => {
         if(!user){
+            // get slug
+            
+            let slug
             let res = await fetch(`/api/user`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
             console.log(res.user)
             setUser(res.user)

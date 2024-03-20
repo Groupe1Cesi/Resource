@@ -5,10 +5,12 @@ import { useCookies } from 'react-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
 import Footer from '../../components/client/footer';
+import { Region, Regions } from '@/types/region'
 
 let Inscription: NextPage = () => {
     const [prenom, setPrenom] = useState('');
     const [nom, setNom] = useState('');
+    const [regionCode, setRegionCode] = useState([]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -18,6 +20,10 @@ let Inscription: NextPage = () => {
     let errorCount = 0
     let router = useRouter()
     let [_, setCookie] = useCookies(['token'])
+    const fetchRegions = async () => {
+        const response = await fetch('/api/regions').then(response => response.json())
+        
+    }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (password !== passwordConfirmation) {
@@ -83,6 +89,12 @@ let Inscription: NextPage = () => {
                                                         <div className="form-floating mb-3">
                                                             <input type="text" className="form-control" name="prenom" id="prenom" placeholder="Prénom" required value={prenom} onChange={(e) => setPrenom(e.target.value)}/>
                                                             <label htmlFor="prenom" className="form-label">Votre prénom</label>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-12">
+                                                        <div className="form-floating mb-3">
+                                                            <input type="text" className="form-control" name="nom" id="nom" placeholder="Nom" required value={nom} onChange={(e) => setNom(e.target.value)}/>
+                                                            <label htmlFor="nom" className="form-label">Votre nom</label>
                                                         </div>
                                                     </div>
                                                     <div className="col-12">

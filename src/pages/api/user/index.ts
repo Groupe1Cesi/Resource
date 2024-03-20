@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Database } from '../../../components/server/mongodb/mongodb.component'
+import { Database } from '@/components/server/mongodb/mongodb.component'
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
