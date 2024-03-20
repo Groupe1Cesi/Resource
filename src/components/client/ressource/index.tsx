@@ -53,12 +53,20 @@ export default function Ressource(){
     })
 
     return (
-        <div className="border-solid text-center m-36 bg-blue-100">
-
-            <div about={"button"}>
-                <button  className={"mt-10 mr-20"}><Link href={'/ressource/addRessource/'}>Ajouter</Link></button>
-                <button className={"mt-10"}>Supprimer</button>
+        <div className="d-flex border rounded m-5 p-4 bg-gray-300">
+            <div>
+                <h2 className="font-bold">Ressource title</h2>
+                <p className="font-bold">Categorie Ressource</p>
+                <div>
+                    <p>ressource description , la description de la ressource ...</p>
+                </div>
             </div>
+
+            <div>
+                <button><Link href={'/ressource/addRessource/'}>Ajouter</Link></button>
+                <button>Supprimer</button>
+            </div>
+
         </div>
-    )
+    );
 }
