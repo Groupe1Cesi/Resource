@@ -18,30 +18,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!token.email && !token.id) {
         return res.status(401).json({ message: 'Non autorisé. Error 003' })
     }
-    let user
+    let ressource
     try {
-        user = await database.db.collection('users').findOne({ email: token.email })
+        ressource = await database.db.collection('ressources').findOne({ email: token.email })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ status:'failed', message: 'Erreur Interne' })
     }
-    if (!user) {
+    if (!ressource) {
         return res.status(401).json({ message: 'Non autorisé. . Error 004' })
     }
 
-    if (user._id.toString() !== token.id) {
+    if (ressource._id.toString() !== token.id) {
         return res.status(401).json({ message: 'Non autorisé. Error 005' })
     }
-    if (user.email !== token.email) {
+    if (ressource.email !== token.email) {
         return res.status(401).json({ message: 'Non autorisé. Error 006' })
     }
-    let userInfos = {
-        prenom: user.prenom,
-        nom: user.nom,
+    let ressourceInfos = {
+        titre: ressource.titre,
+        description: ressource.description,
     }
-    console.log(user)
-    if (!userInfos || userInfos === null || userInfos === undefined) {
+    console.log(ressource)
+    if (!ressourceInfos) {
         return res.status(401).json({ status: "failed", message: "Erreur Interne" })
     }
-    return res.status(200).json({ status: "success", user: userInfos })
+    return res.status(200).json({ status: "success", ressource: ressourceInfos })
 }
