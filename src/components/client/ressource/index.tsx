@@ -53,18 +53,31 @@ export default function Ressource(){
     })
 
     return (
-        <div className="d-flex border rounded m-5 p-4 bg-gray-300">
+        <div className="d-flex flex-md-column border rounded m-5 p-4 bg-gray-300">
             <div>
-                <h2 className="font-bold">Ressource title</h2>
-                <p className="font-bold">Categorie Ressource</p>
-                <div>
-                    <p>ressource description , la description de la ressource ...</p>
+                <div className="flex flex-row">
+                    <div className="flex-1">
+                        <h1 className="font-bold">Ressource title</h1>
+                        <p className="font-bold">Categories</p>
+                    </div>
+                    <div className="flex-1">
+                    <p>Date : 20/03/2024</p>
+                    </div>
+                    <div className="flex-1">
+                        <p>53 vues</p>
+                    </div>
+                </div>
+                <div className="mt-4">
+                    <p className="italic">ressource description , la description de la ressource
+                        ressemble a une ressource avec beaucoup deressource mais on seulement la ressource permet de
+                        ressourcer
+                        plusieur ressource sur une base de ressourciel</p>
                 </div>
             </div>
 
-            <div>
-                <button><Link href={'/ressource/addRessource/'}>Ajouter</Link></button>
-                <button>Supprimer</button>
+            <div className="text-center mt-5 align-right">
+                <button className="border border-r-2 rounded bg-success p-2 text-white"><Link href={'/ressource/addRessource/'}>Ajouter</Link></button>
+                <button className="border border-r-2 rounded bg-danger p-2 text-white">Supprimer</button>
             </div>
 
         </div>
