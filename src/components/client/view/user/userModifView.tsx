@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-let UserModifView = (props: {user: {prenom: string, nom:string, email: string, region: string}}) => {
+import { User } from '@/types/user';
+let UserModifView = (props: {user: User}) => {
     const [prenom, setPrenom] = useState(props.user.prenom)
     const [nom, setNom] = useState(props.user.nom)
     const [email, setEmail] = useState(props.user.email)

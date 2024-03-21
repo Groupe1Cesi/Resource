@@ -17,9 +17,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!token.email && !token.id) {
         return res.status(401).json({ message: 'Non autorisé. Error 003' })
     }
-    let ressource
+    let ressource: any
     try {
-        ressource = await database.db.collection('ressources').find({})
+        ressource = await database.db.collection('ressources').find()
     } catch (error) {
         console.log(error)
         return res.status(500).json({ status:'failed', message: 'Erreur Interne' })
