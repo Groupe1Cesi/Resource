@@ -13,7 +13,7 @@ let userUpdate = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!allowed) {
         return res.status(401).json({ message: 'Non autorisé. Error 002' })
     }
-    let user: UserBdd
+    let user: any
     try {
         user = await database.db.collection('users').findOne({ email: tokenEmail })
         console.log(user)
