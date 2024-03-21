@@ -59,7 +59,7 @@ export default function Nav(){
                     <Image src="/images/logo/logo_ressource.png" alt="logo" width={80} height={80}/>
                     {/* {router.asPath == "/" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"} */}
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><Link href="" className={router.asPath == "/" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Accueil</Link></li>
+                        <li><Link href="/" className={router.asPath == "/" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Accueil</Link></li>
                         <li><Link href="/forum" className={router.asPath == "/forum" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Forum</Link></li>
                         <li><Link href="/forum/dernier" className={router.asPath == "/forum/dernier" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Dernier topic</Link></li>
                         { user ? <li><Link href="/messagerie" className={router.asPath == "/messagerie" ? "nav-link px-2 text-secondary" : "nav-link px-2 text-white"}>Message</Link></li> : null }

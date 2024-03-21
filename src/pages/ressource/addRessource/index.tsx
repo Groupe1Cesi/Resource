@@ -2,10 +2,10 @@ import {Button, Textarea} from "@nextui-org/react";
 import React from "react";
 import Link from "next/link";
 import Nav from "@/components/client/nav";
-import Ressource from "@/components/client/ressource";
+import Ressource from "@/components/client/ressource/ressource";
 import Footer from "@/components/client/footer";
 
-export default function addRessource(){
+export default function Index(){
     return (
 
         <div className="d-flex flex-column h-100">

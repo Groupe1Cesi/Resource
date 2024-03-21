@@ -5,6 +5,7 @@ import React from "react";
 import { useCookies } from "react-cookie";
 import {useEffect, useState } from "react";
 
+
 // type ressource 
 
 type Ressource = {
@@ -95,7 +96,7 @@ export default function Ressource(){
             </div>
 
             <div className="text-center mt-5 align-right">
-                <button className="border border-r-2 rounded bg-success p-2 text-white"><Link href={'/ressource/addRessource/'}>Ajouter</Link></button>
+                <button className="border border-r-2 rounded bg-success p-2 text-white"><Link href={'/ressource/addRessource'}>Ajouter</Link></button>
                 <button className="border border-r-2 rounded bg-danger p-2 text-white">Supprimer</button>
             </div>
 
