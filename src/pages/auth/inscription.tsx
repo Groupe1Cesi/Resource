@@ -1,16 +1,18 @@
 import type { NextPage } from 'next'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
-import Footer from '../../components/client/footer';
+import Footer from '../../components/client/view/footer';
 import { Region, Regions } from '@/types/region'
 
 let Inscription: NextPage = () => {
     const [prenom, setPrenom] = useState('');
     const [nom, setNom] = useState('');
-    const [regionCode, setRegionCode] = useState([]);
+    const [regionList, setRegionList] = useState<Regions>([]);
+    const [region, setRegion] = useState('');
+    const [regionFetched, setRegionFetched] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -21,7 +23,13 @@ let Inscription: NextPage = () => {
     let router = useRouter()
     let [_, setCookie] = useCookies(['token'])
     const fetchRegions = async () => {
-        const response = await fetch('/api/regions').then(response => response.json())
+        const response = await fetch('/api/regions')
+        if (response.status !== 200) {
+            console.log('Erreur lors de la récupération des régions')
+            return
+        }
+        let res = await response.json()
+        setRegionList(res)
         
     }
     const handleSubmit = async (e: React.FormEvent) => {
@@ -34,20 +42,22 @@ let Inscription: NextPage = () => {
             setErrorSubmit('Tous les champs sont requis')
             return
         }
+        if (region === '') {
+            setErrorSubmit('Veuillez choisir une région')
+            return
+        }
         const response = await fetch('/api/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ prenom, nom, email, password }),
+            body: JSON.stringify({ prenom, nom, email, password, region }),
         });
-        console.log(response)
         if (response.ok) {
             const data = await response.json()
             setCookie('token', data.token, { path: '/' })
             router.push('/')
         } else {
-            console.log(response.status)
             if (response.status === 500) {
                 setErrorSubmit(`Erreur lors de la création du compte ... nouvel essai ${errorCount}`)
                 errorCount++
@@ -59,6 +69,12 @@ let Inscription: NextPage = () => {
             return
         }
     };
+    useEffect(() => {
+        if (!regionFetched) {
+            fetchRegions()
+            setRegionFetched(true)
+        }
+    }, [regionFetched, regionList]);
     return (
     <>
         <main className="p-3 p-md-4 p-xl-5 bg-dark bg-gradient">
@@ -99,7 +115,12 @@ let Inscription: NextPage = () => {
                                                     </div>
                                                     <div className="col-12">
                                                         <div className="form-floating mb-3">
-                                                            <input type="text" className="form-control" name="nom" id="nom" placeholder="Nom" required value={nom} onChange={(e) => setNom(e.target.value)}/>
+                                                            <select className="form-select" name="region" id="region" required onChange={(e) => setRegion(e.target.value)}>
+                                                                <option value="">Choisissez votre région</option>
+                                                                { regionList.map((region: Region, index: number) => {
+                                                                    return <option key={index} value={region.code.toString()}>{region.nom}</option>
+                                                                })}
+                                                            </select>
                                                             <label htmlFor="nom" className="form-label">Votre nom</label>
                                                         </div>
                                                     </div>

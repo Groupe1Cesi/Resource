@@ -7,7 +7,7 @@ import { UserComplete } from '@/types/user'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const database = await Database.getInstance()
     if (req.method === 'POST') {
-        const { prenom, nom, email, password } = req.body
+        const { prenom, nom, email, password, region } = req.body
         if (!email || !password || !prenom || !nom) {
             res.status(400).json({ message: 'Prenom, Nom, Email et mot de passe requis' })
             return;
@@ -33,6 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             email : email,
             password: passwordHash,
             role: ['user'],
+            region: region,
             createdAt: createdAt,
             lastLogin: createdAt
         })

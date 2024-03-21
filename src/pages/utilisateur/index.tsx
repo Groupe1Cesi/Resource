@@ -1,31 +1,56 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import Nav from "@/components/client/nav";
-import Footer from "@/components/client/footer";
+import Nav from "@/components/client/view/nav";
+import Footer from "@/components/client/view/footer";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import {useEffect, useState } from "react";
 import { User } from "@/types/user"
 import { useCookies } from "react-cookie";
 import useSWR from 'swr'
+import { useRegion } from "@/components/client/hook/useRegion";
+import { UserInfoView } from "@/components/client/view/user/userInfoView";
+import { UserModifView } from "@/components/client/view/user/userModifView";
 const inter = Inter({ subsets: ["latin"] });
-
+import { Regions, Region } from "@/types/region";
 
 export default function Home() {
     
-    const [user, setUser] = useState(null as User | null);
+    const [user, setUser] = useState<User>({id: '', nom: '', prenom: '', email: '', region: ''});
+    const [mod, setMod] = useState(false)
+    const [region, setRegion] = useState<string>()
+    let router = useRouter()
     let [_, setCookie] = useCookies(['token'])
 
+    let { data } = useRegion()
+
     let GetUser = async () => {
-        if(!user){
-            let res = await fetch(`/api/user`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
-            console.log(res.user)
-            setUser(res.user)
+        try {
+            if(user.id === ''){
+                let res = await fetch(`/api/user`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
+                setUser(res.user)
+            }
+        } catch (error) {
+            router.push('/auth/connexion')
+        }
+
+    }
+    let toggleModify = () => {
+        setMod(!mod)
+    }
+
+    let regionList = async () => {
+        for(let regionFetched of data){
+            if (regionFetched.code === user?.region){
+                setRegion(regionFetched.nom.toString())
+            }
         }
     }
 
 
     useEffect(() => {
         GetUser()
+        regionList()
     });
 
     return (
@@ -38,7 +63,7 @@ export default function Home() {
                             <div className="col-lg-4">
                                 <div className="card mb-4">
                                     <div className="card-body text-center">
-                                        <Image src="/images/bg/bg4.jpg" width={150} height={150} alt="avatar" className="rounded-circle img-fluid" />
+                                        <Image src="/images/bg/bg4.jpg" width={210} height={210} alt="avatar" className=" img-fluid" />
                                         <h5 className="my-3">{ user ? user.nom : ''} {user ? user.prenom : ''}</h5>
                                         <div className="d-flex justify-content-center mb-2">
                                             {/* <button type="button" className="btn btn-primary">Follow</button>
@@ -46,74 +71,16 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="card mb-4 mb-lg-0">
-                                    <div className="card-body p-0">
-                                        <ul className="list-group list-group-flush rounded-3">
-                                            <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i className="fas fa-globe fa-lg text-warning"></i>
-                                                <p className="mb-0">https://mdbootstrap.com</p>
-                                            </li>
-                                            <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i className="fab fa-github fa-lg" style={{"color": "#333333"}}></i>
-                                                <p className="mb-0">mdbootstrap</p>
-                                            </li>
-                                            <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i className="fab fa-twitter fa-lg" style={{"color": "#55acee"}}></i>
-                                                <p className="mb-0">@mdbootstrap</p>
-                                            </li>
-                                            <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i className="fab fa-instagram fa-lg" style={{"color": "#ac2bac"}}></i>
-                                                <p className="mb-0">mdbootstrap</p>
-                                            </li>
-                                            <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i className="fab fa-facebook-f fa-lg" style={{"color": "#3b5998"}}></i>
-                                                <p className="mb-0">mdbootstrap</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                             <div className="col-lg-8">
-                                <div className="card mb-4">
-                                    <div className="card-body">
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <p className="mb-0">Nom</p>
-                                            </div>
-                                            <div className="col-sm-9">
-                                                <p className="text-muted mb-0">{ user ? user.nom : ''}</p>
-                                            </div>
-                                        </div>
-                                        <hr/>
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <p className="mb-0">Prenom</p>
-                                            </div>
-                                            <div className="col-sm-9">
-                                                <p className="text-muted mb-0">{ user ? user.prenom : ''}</p>
-                                            </div>
-                                        </div>
-                                        <hr/>
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <p className="mb-0">Email</p>
-                                            </div>
-                                            <div className="col-sm-9">
-                                                <p className="text-muted mb-0">{ user ? user.email : ''}</p>
-                                            </div>
-                                        </div>
-                                        <hr/>
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <p className="mb-0">Region</p>
-                                            </div>
-                                            <div className="col-sm-9">
-                                                <p className="text-muted mb-0">Pays de la loire</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
+
+                                { region && mod ? (
+                                 <UserModifView user={user} region={region}/>
+                                ): (
+                                 <UserInfoView user={user} region={region}/>
+                                )}
+                                <div className="col-sm-8">
+                                    { mod ? (<button className="btn btn-primary" onClick={toggleModify}>Annuler</button>) : (<button className="btn btn-primary" onClick={toggleModify}>Modifier</button>) }
                                 </div>
                             </div>
                         </div>

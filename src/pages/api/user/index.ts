@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { Database } from '@/components/server/mongodb/mongodb.component'
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { User } from '@/types/user'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const database = await Database.getInstance();
@@ -38,7 +39,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let userInfos = {
         prenom: user.prenom,
         nom: user.nom,
-        email: user.email
+        email: user.email,
+        region: user.region,
     }
     console.log(user)
     if (!userInfos || userInfos === null || userInfos === undefined) {

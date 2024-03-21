@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import Nav from "@/components/client/nav";
-import Footer from "@/components/client/footer";
+import Nav from "@/components/client/view/nav";
+import Footer from "@/components/client/view/footer";
 import Link from "next/link";
 import {useEffect, useState } from "react";
 import { User } from "@/types/user"

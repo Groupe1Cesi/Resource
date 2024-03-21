@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
-import Footer from '../../components/client/footer';
+import Footer from '../../components/client/view/footer';
 
 let Connexion: NextPage = () => {
     const [email, setEmail] = useState('');
@@ -52,7 +52,6 @@ let Connexion: NextPage = () => {
             setCookie('token', data.token, { path: '/' })
             router.push('/')
         } else {
-            console.log(response.status)
             if (response.status === 500) {
                 setErrorSubmit(`Erreur lors de la connexion ... nouvel essai ${errorCount}`)
                 errorCount++

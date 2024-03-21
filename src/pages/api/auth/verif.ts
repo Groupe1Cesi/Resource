@@ -26,7 +26,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     user = await database.db.collection('users').findOne({ email: token.email })
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: 'Problème avec la base de données' })
     return;
   }

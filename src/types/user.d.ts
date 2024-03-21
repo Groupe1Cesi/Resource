@@ -2,7 +2,19 @@ export type User = {
     id: string
     prenom: string,
     nom: string,
-    email: string
+    email: string,
+    region: string,
+}
+
+export type UserBdd = {
+    id: string
+    prenom: string,
+    nom: string,
+    email: string,
+    password: string,
+    region: string,
+    createdAt: Date,
+    lastLogin: Date
 }
 
 export type UserComplete = {
