@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import { useCookies } from "react-cookie";
@@ -9,6 +10,19 @@ import {useEffect, useState } from "react";
 type Ressource = {
     titre: string,
     description: string,
+}
+
+export async function getServerSideProps() {
+    try {
+        let response = await fetch('http://localhost:3000/api/ressource/info');
+        let posts = await response.json();
+
+        return {
+            props: { posts: JSON.parse(JSON.stringify(posts)) },
+        };
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 export default function Ressource(){
@@ -23,7 +37,7 @@ export default function Ressource(){
         }, 1000);
     }
     let GetRessource = async () => {
-        let res = await fetch(`/api/ressource/info`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
+        let res = await fetch(`http://localhost:3000/api/ressource/info`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
         return res;
     }
 
@@ -56,17 +70,22 @@ export default function Ressource(){
         <div className="d-flex flex-md-column border rounded m-5 p-4 bg-gray-300">
             <div>
                 <div className="flex flex-row">
-                    <div className="flex-1">
-                        <h1 className="font-bold">Ressource title</h1>
-                        <p className="font-bold">Categories</p>
-                    </div>
-                    <div className="flex-1">
-                    <p>Date : 20/03/2024</p>
-                    </div>
-                    <div className="flex-1">
-                        <p>53 vues</p>
-                    </div>
+                    <Image src={"/images/picture/profil-picture.png"} alt="Image de profil" width={50} height={50}
+                           className={"mr-5"}/>
+                        <div className={"flex-col flex-1"}>
+                            <p>Nom</p>
+                            <p>Prenom</p>
+                        </div>
+                        <div className="flex-col flex-3">
+                            <h1 className="font-bold">Ressource titre</h1>
+                            <p className="font-bold">Categories</p>
+                        </div>
+                        <div className="flex-col flex-1 text-center">
+                            <p>Date : 20/03/2024</p>
+                            <p>53 vues</p>
+                        </div>
                 </div>
+
                 <div className="mt-4">
                     <p className="italic">ressource description , la description de la ressource
                         ressemble a une ressource avec beaucoup deressource mais on seulement la ressource permet de

@@ -14,7 +14,6 @@ export default function Home() {
                 <div className="container">
                     <h1 className="mt-5">Bienvenue sur Resource Relationnel</h1>
                     <p className="lead">Resource est une application permettant aux citoyens de trouver des documents ainsi que des informations liées à ces documents.</p>
-
                     <Ressource/>
                     <Ressource/>
                     <Ressource/>
