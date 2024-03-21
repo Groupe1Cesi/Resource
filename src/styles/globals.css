@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .loginBackground {
     background-image: url('/images/bg/bg4.jpg');
     -webkit-background-size: cover;
