@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { User } from '@/types/user';
-let UserInfoView = (props: {user: User, region: string}) => {
+let UserInfoView = (props: {user: {prenom: string, nom:string, email: string}, region: string}) => {
 
     return (
         <>

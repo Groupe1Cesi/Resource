@@ -18,7 +18,7 @@ export default function Home() {
     
     const [user, setUser] = useState<User>({id: '', nom: '', prenom: '', email: '', region: ''});
     const [mod, setMod] = useState(false)
-    const [region, setRegion] = useState<string>('')
+    const [region, setRegion] = useState<string>()
     let router = useRouter()
     let [_, setCookie] = useCookies(['token'])
 
@@ -75,7 +75,7 @@ export default function Home() {
                             <div className="col-lg-8">
 
                                 { region && mod ? (
-                                 <UserModifView user={user}/>
+                                 <UserModifView user={user} region={region}/>
                                 ): (
                                  <UserInfoView user={user} region={region}/>
                                 )}
