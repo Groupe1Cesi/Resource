@@ -14,7 +14,7 @@ type Ressource = {
 
 export async function getServerSideProps() {
     try {
-        let response = await fetch('http://localhost:3000/api/ressource/info');
+        let response = await fetch('/api/ressource/info');
         let posts = await response.json();
 
         return {
@@ -37,7 +37,7 @@ export default function Ressource(){
         }, 1000);
     }
     let GetRessource = async () => {
-        let res = await fetch(`http://localhost:3000/api/ressource/info`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
+        let res = await fetch(`/api/ressource/info`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
         return res;
     }
 
@@ -63,7 +63,7 @@ export default function Ressource(){
         }
     }
     useEffect(() => {
-        ressourceinfos()
+        //ressourceinfos()
     })
 
     return (
