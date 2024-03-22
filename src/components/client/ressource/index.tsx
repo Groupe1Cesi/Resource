@@ -37,7 +37,7 @@ export default function Ressource(){
         }, 1000);
     }
     let GetRessource = async () => {
-        let res = await fetch(`http://localhost:3000/api/ressource/info`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
+        let res = await fetch(`/api/ressource/info`, { method: "GET", headers: { "Authorization": _.token } }).then(res => res.json())
         return res;
     }
 
