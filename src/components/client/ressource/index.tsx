@@ -14,7 +14,7 @@ type Ressource = {
 
 export async function getServerSideProps() {
     try {
-        let response = await fetch('http://localhost:3000/api/ressource/info');
+        let response = await fetch('/api/ressource/info');
         let posts = await response.json();
 
         return {
@@ -63,7 +63,7 @@ export default function Ressource(){
         }
     }
     useEffect(() => {
-        ressourceinfos()
+        //ressourceinfos()
     })
 
     return (
