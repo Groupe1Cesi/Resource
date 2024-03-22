@@ -19,7 +19,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     let ressource: any
     try {
-        ressource = await database.db.collection('ressources').find()
+        ressource = await database.db.collection('ressources').find().toArray()
+        console.log(ressource)
     } catch (error) {
         console.log(error)
         return res.status(500).json({ status:'failed', message: 'Erreur Interne' })
