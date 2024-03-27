@@ -23,7 +23,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         user = await database.db.collection('users').findOne({ email: token.email })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ status:'failed', message: 'Erreur Interne' })
     }
     if (!user) {
@@ -42,7 +41,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         email: user.email,
         region: user.region,
     }
-    console.log(user)
     if (!userInfos || userInfos === null || userInfos === undefined) {
         return res.status(401).json({ status: "failed", message: "Erreur Interne" })
     }

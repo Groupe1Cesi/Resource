@@ -21,17 +21,18 @@ export default function Home() {
     let fetchForums = async () => {
         let response: Forums = []
         try {
-            response = await fetch('/api/regions').then(res => res.json())
+            response = await fetch('/api/forum').then(res => res.json())
             setForums(response)
             setForumFetched(true)
         } catch (error) {
             console.log(error)
         }
-        
     }
     useEffect(() => {
-        fetchForums()
-    })
+        if (!forumFetched) {
+            fetchForums()
+        }
+    }, [forumFetched])
 
     return (
         <>
@@ -39,8 +40,8 @@ export default function Home() {
             <main className="flex-shrink-0">
                 <section style={{ 'backgroundColor':'#eee' }}>
                     <div className="container">
-                        <h1 className="mt-5">Bienvenue sur le forum</h1>
-                        <p className="lead">Resource est une application permettant aux citoyens de trouver des documents ainsi que des informations liées à ces documents.</p>
+                        <h1 className="mt-5">Bienvenue sur la liste des forums</h1>
+                        <p className="lead">Choisissez un forum parmis les régions</p>
                         <div className="row">
                             {Forums.map((forum: Forum, index: number) => (
                                 <div className="col-md-4" key={index}>
@@ -50,9 +51,7 @@ export default function Home() {
                                             <p className="card-text">{forum.description}</p>
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div className="btn-group">
-                                                    <Link href={`/forum/${forum.code}`}>
-                                                        <a className="btn btn-sm btn-outline-secondary">Voir</a>
-                                                    </Link>
+                                                    <Link href={`/forum/${forum.code}`} className="btn btn-sm btn-outline-secondary">Voir</Link>
                                                 </div>
                                             </div>
                                         </div>

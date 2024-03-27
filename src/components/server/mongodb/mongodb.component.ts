@@ -45,8 +45,6 @@ class Database {
   private setDB = async () => {
     return new Promise<void>(async (resolve, reject) => {
       try {
-        console.log('setting db')
-        console.log(process.env.MONGO_DB)
         this.db = this.client.db(process.env.MONGO_DB as string);
         resolve();
       } catch (error) {

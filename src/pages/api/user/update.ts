@@ -16,16 +16,13 @@ let userUpdate = async (req: NextApiRequest, res: NextApiResponse) => {
     let user: any
     try {
         user = await database.db.collection('users').findOne({ email: tokenEmail })
-        console.log(user)
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ status:'failed', message: 'Erreur Interne' })
     }
     if (!user) {
         return res.status(401).json({ message: 'Non autorisé. . Error 004' })
     }
     let body = req.body
-    console.log(req.body)
     if (body.prenom || body.nom || body.email || body.region) {
         let updateRequest = {}
         if (body.prenom) {
