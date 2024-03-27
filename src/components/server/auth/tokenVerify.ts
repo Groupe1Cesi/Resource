@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { Database } from '../mongodb/mongodb.component'
+
 let tokenVerify = async (authorization:string):Promise<{allowed: boolean, tokenEmail: string}> => {
     let token:any
     let database = await Database.getInstance()

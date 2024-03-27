@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Database } from '@/components/server/mongodb/mongodb.component'
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const database = await Database.getInstance()
@@ -23,7 +22,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   let user
   try {
-    
     user = await database.db.collection('users').findOne({ email: token.email })
   } catch (error) {
     res.status(500).json({ message: 'Problème avec la base de données' })
