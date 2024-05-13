@@ -93,8 +93,8 @@ export default function Home(id: any) {
                                         <Link href={`/forum/${router.query.id}/${resource.uniqueId}`}>{resource.titre}</Link>
                                     </td>
                                     <td>{resource.auteur}</td>
-                                    <td>{resource.datePublication}</td>
-                                    <td>{resource.nombreVue}</td>
+                                    <td>{resource.datePublication.toString()}</td>
+                                    <td>{resource.nombreVue.toString()}</td>
                                     <td>{resource.commentaire.length}</td>
                                 </tr>
                             ))}
