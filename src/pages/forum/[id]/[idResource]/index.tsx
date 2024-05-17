@@ -15,6 +15,7 @@ import { Forums, Forum } from "@/types/forum";
 import { Resource } from "@/types/resource";
 import { useForum } from "@/components/client/hook/useForum";
 import { FaRegFolder } from "react-icons/fa";
+import { parseISO, format } from 'date-fns';
 
 export default function Home(id: any) {
     let [forum, setForum] = useState<Forum>({nom: '', code: '', description: ''});
@@ -75,47 +76,12 @@ export default function Home(id: any) {
         <>
             <Nav />
             <main className="flex-shrink-0">
-                <div className="container">
-                    <div className="d-flex flex-md-column border rounded m-5 p-4 bg-gray-300">
-                <div>
-                <div className="flex flex-row">
-                    <Image src={"/images/picture/profil-picture.png"} alt="Image de profil" width={50} height={50}
-                           className={"mr-5"}/>
-                        <div className={"flex-col flex-1"}>
-                            <p>Nom</p>
-                            <p>Prenom</p>
-                        </div>
-                        <div className="flex-col flex-3">
-                            <h1 className="font-bold">Ressource titre</h1>
-                            <p className="font-bold">Categories</p>
-                        </div>
-                        <div className="flex-col flex-1 text-center">
-                            <p>Date : 20/03/2024</p>
-                            <p>53 vues</p>
-                        </div>
-                </div>
-
-                <div className="mt-4">
-                    <p className="italic">ressource description , la description de la ressource
-                        ressemble a une ressource avec beaucoup deressource mais on seulement la ressource permet de
-                        ressourcer
-                        plusieur ressource sur une base de ressourciel</p>
-                </div>
-            </div>
-
-            <div className="text-center mt-5 align-right">
-                <button className="border border-r-2 rounded bg-success p-2 text-white"><Link href={'/ressource/addRessource/'}>Ajouter</Link></button>
-                <button className="border border-r-2 rounded bg-danger p-2 text-white">Supprimer</button>
-            </div>
-
-        </div>
-                    -----------
-                    <div className="d-flex flex-md-column border rounded m-5 p-4 bg-gray-300">
-                        <div className="card text-white bg-secondary mb-3" style={{'maxWidth': '18rem'}}>
-                            <div className="card-header">{resource.auteur} {resource.datePublication.toString()}</div>
-                            <div className="card-body">
-                                {resource.contenue}
-                            </div>
+                <div className="d-flex flex-md-column m-5 p-4 bg-gray-300">
+                    <div className="card text-white bg-secondary mb-3">
+                        <div className="card-header">
+                            <p>{resource.auteur} le {format(resource.datePublication, 'dd/MM/yyyy')}</p></div>
+                        <div className="card-body">
+                            {resource.contenue}
                         </div>
                     </div>
                 </div>

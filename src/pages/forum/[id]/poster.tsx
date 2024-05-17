@@ -65,8 +65,8 @@ export default function Home(id: any) {
             <main className="flex-shrink-0">
                 <section style={{ 'backgroundColor':'#eee' }}>
                     <div className="container">
-                        <h1 className="mt-5">Bienvenue sur le forum {forum.nom} </h1>
-                        <p className="lead">{forum.description}</p>
+                        <h1 className="mt-5">Poster un nouveau topic</h1>
+                        <p className="lead"></p>
                     </div>
                 </section>
 
