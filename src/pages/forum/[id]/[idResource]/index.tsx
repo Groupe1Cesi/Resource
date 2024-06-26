@@ -79,7 +79,7 @@ export default function Home(id: any) {
                 <div className="d-flex flex-md-column m-5 p-4 bg-gray-300">
                     <div className="card text-white bg-secondary mb-3">
                         <div className="card-header">
-                            <p>{resource.auteur} le {format(resource.datePublication, 'dd/MM/yyyy')}</p></div>
+                            <p>{resource.auteur} le {resource.datePublication.toString()}</p></div>
                         <div className="card-body">
                             {resource.contenue}
                         </div>

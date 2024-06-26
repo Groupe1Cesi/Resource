@@ -48,6 +48,10 @@ export default function Home(id: any) {
         }
     }
 
+    let createNewTopic = () =>  {
+        router.push(`/forum/${router.query.id}/poster`)
+    }
+
     useEffect(() => {
         if (router.isReady) {
             if (!forumFetched) {
@@ -73,7 +77,7 @@ export default function Home(id: any) {
                 <section>
                     <div className="d-flex flex-md-column border rounded m-5 p-4 bg-gray-300">
                         <div>
-                            <button type="button" className="btn btn-light border rounded">Nouveau topic</button>
+                            <button onClick={createNewTopic} type="button" className="btn btn-light border rounded">Nouveau topic</button>
                         </div>
                         <table className="table">
                             <thead>
